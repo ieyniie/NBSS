@@ -30,7 +30,7 @@ model:
       ft_overlap: 256
       loss_func: models.io.narrow_band.td_signal_nb.neg_si_sdr
   ref_channel: 0
-  channels: [0, 1, 2, 3, 4, 5, 6, 7]
+  channels: [0, 1, 2, 3, 4, 5]
   learning_rate: 0.001
   optimizer: Adam
   optimizer_kwargs: {}
@@ -42,9 +42,9 @@ model:
 data:
   class_path: data_loaders.SS_SemiOnlineDataModule
   init_args:
-    clean_speech_dataset: wsj0-mix
-    clean_speech_dir: ~/datasets/
-    rir_dir: ~/datasets/rir_cfg_4
+    clean_speech_dataset: zhvoice
+    clean_speech_dir: /root/data/
+    rir_dir: /root/data/rir_cfg_4
     speech_overlap_ratio:
     - 0.1
     - 1.0

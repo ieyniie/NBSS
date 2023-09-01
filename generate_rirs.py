@@ -158,13 +158,13 @@ def find_random_vertical_vectors(vec: np.ndarray) -> Tuple[np.ndarray, np.ndarra
 
 
 def generate_rir_cfg_list(spk_num=2,
-                          xlim=[3, 8],
-                          ylim=[3, 8],
-                          zlim=[3, 4],
-                          array_r=0.05,
-                          RT60lim=[0.1, 1.0],
+                          xlim=[20, 40],
+                          ylim=[30, 50],
+                          zlim=[4, 8],
+                          array_r=0.035,
+                          RT60lim=[1.0, 1.8],
                           rir_num=28000,
-                          mic_num=8,
+                          mic_num=6,
                           array_type='circular',
                           mic_pattern='omni',
                           fs=16000,
@@ -208,7 +208,7 @@ def generate_rir_cfg_list(spk_num=2,
 
         # microphone positions
         pos_rcv = np.empty((mic_num, 3))
-        mic_center = np.array([uniform(room_sz[0] / 2 - 0.5, room_sz[0] / 2 + 0.5), uniform(room_sz[1] / 2 - 0.5, room_sz[1] / 2 + 0.5), 1.5])
+        mic_center = np.array([uniform(room_sz[0] / 2 - 0.5, room_sz[0] / 2 + 0.5), uniform(room_sz[1] / 2 - 0.5, room_sz[1] / 2 + 0.5), 1.70])
         # 在半径为1的水平圆面内部随机找一点，将该点与原点形成的向量作为圆形麦克风阵列平面的法向量
         norm_vec = np.array([uniform(-1, 1), uniform(-1, 1), 0])
         while np.linalg.norm(norm_vec) == 0:
@@ -238,7 +238,7 @@ def generate_rir_cfg_list(spk_num=2,
         # first speaker's loc is randomly sampled
         pos_src[0, 0] = uniform(0.5, room_sz[0] - 0.5)  # x
         pos_src[0, 1] = uniform(0.5, room_sz[1] - 0.5)  # y
-        pos_src[0, 2] = 1.5  # z
+        pos_src[0, 2] = 1.7  # z
         # the second speaker's loc is sampled according to a uniformly sampled angle to spk 1 and mic center
         theta = uniform(0, 1) * np.pi * 2  # 0~360度
         mc2s1 = pos_src[0, :] - mic_center  # mic center to speaker 1
@@ -380,7 +380,7 @@ if __name__ == '__main__':
     parser.add_argument('--test_num', default=3000, type=int, help='num of rirs for test set')
 
     parser.add_argument('--spk', default=2, type=int, help='num of speakers (default: 2)')
-    parser.add_argument('--mic', default=8, type=int, help='num of mics (default: 8)')
+    parser.add_argument('--mic', default=6, type=int, help='num of mics (default: 6)')
 
     args = parser.parse_args()
 

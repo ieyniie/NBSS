@@ -33,10 +33,7 @@ This project is built on the `pytorch-lightning` package, in particular its [com
 **Train** NBC2 on the 0-th GPU with config file `configs/NBC2_small.yaml` or `configs/NBC2_large.yaml` (replace the rir & clean speech dir before training).
 
 ```bash
-python NBSSCLI.py fit --config=configs/NBC2_small.yaml \
- --data.batch_size=[2,2] \ # batch size for train and val
- --trainer.accumulate_grad_batches=1 \
- --trainer.devices=0,
+python NBSSCLI.py fit --config=configs/NBC2_small.yaml --data.batch_size=[16,16] --trainer.accumulate_grad_batches=1 --trainer.devices=0,1,2,3,
 ```
 
 More gpus can be used by appending the gpu indexes to `trainer.devices`, e.g. `--trainer.devices=0,1,2,3,`.
